@@ -32,9 +32,9 @@ const Wrapper = ({classToUse, children, Possibles }: WrapperProps) => {
   
 }
 
-function GenericList<T>({ items,  Component,  itemId }: ListProps<T>) {
+function GenericList<T>({ items,  Component, Possibles, classToUse, itemId }: ListProps<T>) {
   return (
-    <Wrapper  >
+    <Wrapper classToUse={classToUse} Possibles={Possibles}  >
       {items.map((item) => (
         <Component key={itemId(item)} item={item} />
       ))}
