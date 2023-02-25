@@ -1,19 +1,16 @@
-import { useContext, useEffect, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { StateContext } from "../../Context/context";
 import { ProductInterface } from "../../data/products";
 import ButtonProducts from "../share/ButtonProducts";
+import { ItemProps } from "../share/GenericList";
 
-interface Props {
-  product: ProductInterface
 
-}
-
-const ProductBox = ({ product }: Props) => {
-  const { thumbnail, title, price } = product;
+const ProductBox= ({ itemToRender }: ItemProps<ProductInterface>) => {
+  const { thumbnail, title, price } = itemToRender;
   const { addToCart, removeFromCart, cart } = useContext(StateContext);
 
   const checkItsInCart = useMemo(() => {
-    return cart.find((item: ProductInterface) => item.id === product.id);
+    return cart.find((item: ProductInterface) => item.id === itemToRender.id);
   }, [cart])
 
 
@@ -27,7 +24,7 @@ const ProductBox = ({ product }: Props) => {
         <h3 className="mb-4">{title}</h3>
         <div className="flex flex-col gap-4">
           <span>${price}</span>
-          <ButtonProducts text={checkItsInCart ? 'Remove from Cart' : 'Add to Cart'} onClickHandler={checkItsInCart ? () => removeFromCart(product) : () => addToCart(product)} />
+          <ButtonProducts text={checkItsInCart ? 'Remove from Cart' : 'Add to Cart'} onClickHandler={checkItsInCart ? () => removeFromCart(itemToRender) : () => addToCart(itemToRender)} />
         </div>
       </div>
     </div>

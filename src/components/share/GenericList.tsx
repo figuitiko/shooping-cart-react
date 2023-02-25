@@ -1,15 +1,15 @@
-export interface ItemProps<T> {
- item?: T;
-  key?: string;
+export interface ItemProps<T> {  
+  key?: string;  
+  itemToRender: T;
 }
-enum WrapperPossibles{
+export enum WrapperPossibles{
   div,
   span,
   ul
 }
 export interface WrapperProps {
   classToUse?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   Possibles?: WrapperPossibles
 }
 interface ListProps<T> extends WrapperProps {
@@ -36,10 +36,11 @@ function GenericList<T>({ items,  Component, Possibles, classToUse, itemId }: Li
   return (
     <Wrapper classToUse={classToUse} Possibles={Possibles}  >
       {items.map((item) => (
-        <Component key={itemId(item)} item={item} />
+        <Component key={itemId(item)}  itemToRender={item} />
       ))}
     </Wrapper>
   );
 }
+
 
 export default GenericList;
